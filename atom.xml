@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[quanken]]></title>
+  <subtitle><![CDATA[just coding....]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://quanken.github.io/"/>
+  <updated>2015-12-29T11:53:07.000Z</updated>
+  <id>http://quanken.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Zhenquan.Liang]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[DNSPod Security Recursive DNS Server]]></title>
+    <link href="http://quanken.github.io/2015/12/29/DNSPod-Security-Recursive-DNS-Server/"/>
+    <id>http://quanken.github.io/2015/12/29/DNSPod-Security-Recursive-DNS-Server/</id>
+    <published>2015-12-29T10:11:49.000Z</published>
+    <updated>2015-12-29T11:53:07.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="u4ECB_u7ECD"><a href="#u4ECB_u7ECD" class="headerlink" title="介绍"></a>介绍</h1><p>dnspod-sr 是递归 DNS 程序，功能类似于 BIND ，但是性能较 BIND 高出数倍。可以通过架设 dnspod-sr 集群，替换各大运营商目前基于 BIND 的陈旧方案，减少运营成本；也可以用于公司、学校、政府等组织内部 DNS，解析外部不可见的私有域名，提高上网速度。其中的基础模块也可以在其他项目上使用。</p>
+<a id="more"></a>
+<h1 id="u7279_u6027"><a href="#u7279_u6027" class="headerlink" title="特性"></a>特性</h1><ul>
+<li>软件性能高出2倍以上</li>
+<li>安全，能抵御一般攻击</li>
+<li>稳定，有效降低解析失败率</li>
+<li>主动刷新缓存，响应速度更快</li>
+<li>易于扩展，非常容易部署</li>
+<li>防污染，能够正确解析被污染域名</li>
+</ul>
+<h1 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h1><h2 id="u83B7_u53D6_u6E90_u4EE3_u7801"><a href="#u83B7_u53D6_u6E90_u4EE3_u7801" class="headerlink" title="获取源代码"></a>获取源代码</h2><ul>
+<li>直接同步代码仓库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/DNSPod/dnspod-sr.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>直接下载压缩包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://github.com/DNSPod/dnspod-sr/zipball/master</span><br><span class="line">$ unzip master</span><br></pre></td></tr></table></figure>
+<h2 id="u7F16_u8BD1"><a href="#u7F16_u8BD1" class="headerlink" title="编译"></a>编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dnspod-sr/src</span><br><span class="line">$ make</span><br></pre></td></tr></table></figure>
+<h2 id="u8FD0_u884C"><a href="#u8FD0_u884C" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确保是在dnspod-sr/src目录下面</span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/path/to/dnspod-sr/src</span><br><span class="line"><span class="comment"># 用root权限运行服务</span></span><br><span class="line">$ sudo ./dnspod-sr</span><br></pre></td></tr></table></figure>
+<h2 id="u8F85_u52A9_u6D4B_u8BD5_u5DE5_u5177"><a href="#u8F85_u52A9_u6D4B_u8BD5_u5DE5_u5177" class="headerlink" title="辅助测试工具"></a>辅助测试工具</h2><p>推荐使用 <code>dig</code> 对解析记录进行</p>
+<p>在CentOS中，dig工具属于 <code>bind-utils</code> 包，只需要安装 bind-utils 即可。</p>
+<p>安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y <span class="built_in">bind</span>-utils</span><br></pre></td></tr></table></figure>
+<h1 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h1><h2 id="u8F6C_u53D1_u3001_u7F13_u5B58DNS_u670D_u52A1"><a href="#u8F6C_u53D1_u3001_u7F13_u5B58DNS_u670D_u52A1" class="headerlink" title="转发、缓存DNS服务"></a>转发、缓存DNS服务</h2><p>无需额外配置，直接运行即可</p>
+<h2 id="u79C1_u6709_u89E3_u6790_u670D_u52A1_u5668"><a href="#u79C1_u6709_u89E3_u6790_u670D_u52A1_u5668" class="headerlink" title="私有解析服务器"></a>私有解析服务器</h2><ul>
+<li>解析配置文件</li>
+</ul>
+<p>具体的解析配置文件为<code>dnspod-sr/root.z</code></p>
+<p>考虑自定义的解析与权威解析之间的冲突，可以直接在 <code>root.z</code> 最开始部分直接新增解析。</p>
+<p>文章假定我们要自己解析 <code>www.quanken.com</code> 与 <code>git.quanken.com</code> 两个域名</p>
+<ul>
+<li>新增NS记录</li>
+</ul>
+<p>先新增顶级与二级域名的NS记录</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">quanken<span class="class">.com</span>. <span class="number">172800</span> IN NS www<span class="class">.quanken</span><span class="class">.com</span>.</span><br><span class="line">quanken<span class="class">.com</span>. <span class="number">172800</span> IN NS git<span class="class">.quanken</span><span class="class">.com</span>.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新增A记录</li>
+</ul>
+<p>然后新增二级域名的解析A记录</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">www</span><span class="class">.quanken</span><span class="class">.com</span>. 172800 <span class="tag">IN</span> <span class="tag">A</span> 192<span class="class">.168</span><span class="class">.1</span><span class="class">.101</span></span><br><span class="line"><span class="tag">git</span><span class="class">.quanken</span><span class="class">.com</span>. 172800 <span class="tag">IN</span> <span class="tag">A</span> 192<span class="class">.168</span><span class="class">.1</span><span class="class">.102</span></span><br></pre></td></tr></table></figure>
+<p>注意： 如果是最后一行记录，记得确保再新增一行空行</p>
+<ul>
+<li>测试</li>
+</ul>
+<p>保存好记录后, 重新启动解析服务即可生效。</p>
+<p>然后使用 <code>dig @dnspod-sr.server.ip www.quanken.com</code> 即可获得解析结果</p>
+<p>例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ dig @<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> git.quanken.com</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG <span class="number">9.8</span><span class="number">.3</span>-P1 &lt;&lt;&gt;&gt; @<span class="number">132.97</span><span class="number">.186</span><span class="number">.116</span> git.quanken.com</span><br><span class="line">; (<span class="number">1</span> server found)</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: <span class="number">37704</span></span><br><span class="line">;; flags: qr ra; QUERY: <span class="number">1</span>, ANSWER: <span class="number">1</span>, AUTHORITY: <span class="number">0</span>, ADDITIONAL: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;git.quanken.com.		IN	A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">git.quanken.com.	<span class="number">604800</span>	IN	A	<span class="number">192.168</span><span class="number">.1</span><span class="number">.102</span></span><br><span class="line"></span><br><span class="line">;; Query time: <span class="number">7</span> msec</span><br><span class="line">;; SERVER: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="preprocessor">#<span class="number">53</span>(<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>)</span></span><br><span class="line">;; WHEN: Tue Dec <span class="number">29</span> <span class="number">19</span>:<span class="number">47</span>:<span class="number">26</span> <span class="number">2015</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到，<code>git.quanken.com</code> 已经解析到 <code>192.168.1.102</code> 了</p>
+<h1 id="u4F7F_u7528"><a href="#u4F7F_u7528" class="headerlink" title="使用"></a>使用</h1><p>在操作系统网络配置里面，把域名解析服务器指到私有的域名解析服务器，就可以实现私有域名解析了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="u4ECB_u7ECD"><a href="#u4ECB_u7ECD" class="headerlink" title="介绍"></a>介绍</h1><p>dnspod-sr 是递归 DNS 程序，功能类似于 BIND ，但是性能较 BIND 高出数倍。可以通过架设 dnspod-sr 集群，替换各大运营商目前基于 BIND 的陈旧方案，减少运营成本；也可以用于公司、学校、政府等组织内部 DNS，解析外部不可见的私有域名，提高上网速度。其中的基础模块也可以在其他项目上使用。</p>]]>
+    
+    </summary>
+    
+      <category term="opensource" scheme="http://quanken.github.io/tags/opensource/"/>
+    
+      <category term="software" scheme="http://quanken.github.io/tags/software/"/>
+    
+      <category term="software" scheme="http://quanken.github.io/categories/software/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Android Image Optimizor]]></title>
+    <link href="http://quanken.github.io/2015/12/26/Android-Image-Optimizor/"/>
+    <id>http://quanken.github.io/2015/12/26/Android-Image-Optimizor/</id>
+    <published>2015-12-26T11:59:05.000Z</published>
+    <updated>2015-12-28T06:59:39.000Z</updated>
+    <content type="html"><![CDATA[<p>When you building your app from source to the final signed and aligned apk, you have to package assert files including images etc using <code>AAPT</code> (Android Assert Package Tool).</p>
+<a id="more"></a>
+<p>If you are using </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Android Build Tool <span class="number">21</span>+</span><br><span class="line">libpng <span class="number">1.6</span>+</span><br><span class="line">Gradle <span class="number">2.</span>x</span><br></pre></td></tr></table></figure>
+<p>to build your project, you may meet up with this :</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">AAPT:</span> <span class="regexp">/path/</span>to<span class="regexp">/project/</span>src<span class="regexp">/main/</span>res<span class="regexp">/drawable/</span>xxx.<span class="string">png:</span> libpng <span class="string">warning:</span> <span class="string">iCCP:</span> Not recognizing known sRGB profile that has been edited</span><br></pre></td></tr></table></figure>
+<p>You may work around it with one or more of the following solution :</p>
+<ul>
+<li><p>Use a PNG editor to remove the iCCP chunk from the PNG files listed in the error report</p>
+<p>e.g. : </p>
+</li>
+</ul>
+<ol>
+<li><p>with ImageMagick’s “convert -define png:exclude-chunk=iCCP,zCCP”</p>
+</li>
+<li><p>with ImageOptim to drag image with warning to be optimized<br>you can get it from <a href="https://imageoptim.com" target="_blank" rel="external">here</a><br>I strongly suggest you to use <code>ImageOptim</code> to dual with them.</p>
+</li>
+</ol>
+<ul>
+<li><p>Use a PNG editor to remove all ancillary chunks, e.g., convert -strip</p>
+</li>
+<li><p>Downgrade your libpng to version 1.5.x (currently libpng-1.5.23)</p>
+</li>
+<li><p>Reinstall libpng-1.6.x (currently libpng-1.6.17) with “-DPNG_sRGB_PROFILE_CHECKS=-1”</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>When you building your app from source to the final signed and aligned apk, you have to package assert files including images etc using <code>AAPT</code> (Android Assert Package Tool).</p>]]>
+    
+    </summary>
+    
+      <category term="android" scheme="http://quanken.github.io/tags/android/"/>
+    
+      <category term="software" scheme="http://quanken.github.io/tags/software/"/>
+    
+      <category term="tool" scheme="http://quanken.github.io/tags/tool/"/>
+    
+      <category term="android" scheme="http://quanken.github.io/categories/android/"/>
+    
+      <category term="software" scheme="http://quanken.github.io/categories/android/software/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SpringMVC i18n]]></title>
+    <link href="http://quanken.github.io/2015/12/04/SpringMVC-i18n/"/>
+    <id>http://quanken.github.io/2015/12/04/SpringMVC-i18n/</id>
+    <published>2015-12-04T07:10:26.000Z</published>
+    <updated>2015-12-28T06:59:39.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Purpose"><a href="#Purpose" class="headerlink" title="Purpose"></a>Purpose</h1><p>i18n with spring is quite easy</p>
+<p>This post is to show you a simplest spring i18n demo with gradle and groovy.</p>
+<a id="more"></a>
+<h1 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h1><p>I assume that you already have :</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JDK <span class="number">1.7</span>+</span><br><span class="line">Gradle <span class="number">2.1</span>+</span><br><span class="line">Tomcat <span class="number">7</span>+</span><br></pre></td></tr></table></figure>
+<h1 id="Project_Structure"><a href="#Project_Structure" class="headerlink" title="Project Structure"></a>Project Structure</h1><ul>
+<li>src/main/groovy</li>
+</ul>
+<p>source code</p>
+<ul>
+<li>src/main/resources/i18n</li>
+</ul>
+<p>message resource folder</p>
+<ul>
+<li>src/main/webapp</li>
+</ul>
+<p>web page folder</p>
+<h1 id="Build_Script"><a href="#Build_Script" class="headerlink" title="Build Script"></a>Build Script</h1><figure class="highlight groovy"><figcaption><span>build.gradle</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'groovy'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'idea'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'war'</span></span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">	compile <span class="string">'com.google.code.gson:gson:2.5'</span></span><br><span class="line">	compile <span class="string">'org.codehaus.groovy:groovy-all:2.4.5'</span></span><br><span class="line">	compile <span class="string">'org.springframework.boot:spring-boot-starter-web:1.2.2.RELEASE'</span></span><br><span class="line">	compile <span class="string">'jstl:jstl:1.2'</span></span><br><span class="line"></span><br><span class="line">	providedCompile <span class="string">'org.springframework.boot:spring-boot-starter-tomcat:1.2.2.RELEASE'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Core_Sources"><a href="#Core_Sources" class="headerlink" title="Core Sources"></a>Core Sources</h1><p>TODO</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Purpose"><a href="#Purpose" class="headerlink" title="Purpose"></a>Purpose</h1><p>i18n with spring is quite easy</p>
+<p>This post is to show you a simplest spring i18n demo with gradle and groovy.</p>]]>
+    
+    </summary>
+    
+      <category term="gradle" scheme="http://quanken.github.io/tags/gradle/"/>
+    
+      <category term="groovy" scheme="http://quanken.github.io/tags/groovy/"/>
+    
+      <category term="java" scheme="http://quanken.github.io/tags/java/"/>
+    
+      <category term="spring" scheme="http://quanken.github.io/tags/spring/"/>
+    
+      <category term="coding" scheme="http://quanken.github.io/categories/coding/"/>
+    
+      <category term="demo" scheme="http://quanken.github.io/categories/coding/demo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[MacOSX EI Capitan : enable NTFS disk R/W by ntfs-3g]]></title>
+    <link href="http://quanken.github.io/2015/11/10/MacOSX-EI-Capitan-enable-NTFS-disk-R-W-by-ntfs-3g/"/>
+    <id>http://quanken.github.io/2015/11/10/MacOSX-EI-Capitan-enable-NTFS-disk-R-W-by-ntfs-3g/</id>
+    <published>2015-11-10T06:21:34.000Z</published>
+    <updated>2015-12-28T06:59:39.000Z</updated>
+    <content type="html"><![CDATA[<p>NTFS format disk was default not writable under macosx.</p>
+<p>This guide is to show you how to enable ntfs disk read/write in macosx with <code>ntfs-3g</code>.</p>
+<a id="more"></a>
+<!--toc-->
+<h1 id="osxfuse"><a href="#osxfuse" class="headerlink" title="osxfuse"></a>osxfuse</h1><p>Install or Update <code>osxfuse</code> using <code>osxfuse-{3.x.x}.dmg</code> </p>
+<p>download link: <a href="https://github.com/osxfuse/osxfuse/releases" target="_blank" rel="external">osxfuse github release page</a></p>
+<h1 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h1><p>Install Homebrew:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>After installation, update homebrew formula using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<h1 id="ntfs-3g"><a href="#ntfs-3g" class="headerlink" title="ntfs-3g"></a>ntfs-3g</h1><p>Install <code>ntfs-3g</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install homebrew/fuse/ntfs-<span class="number">3</span>g</span><br></pre></td></tr></table></figure>
+<h1 id="System_Configuration"><a href="#System_Configuration" class="headerlink" title="System Configuration"></a>System Configuration</h1><p>OSX 10.11 (El Capitan) must temporary disable <code>System Integrity Protection</code><br>to avoid “Operation Not Permitted” error when operating files in /sbin.</p>
+<ul>
+<li>reboot in recovery mode to disable <code>SIP</code></li>
+</ul>
+<p>reboot by holding CMD+R to get in recovery mode</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrutil <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>replace mount_ntfs in /sbin</li>
+</ul>
+<p>reboot normally from recovery mode</p>
+<p>After booted in system, create a symlink for <code>mount_ntfs</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.original </span><br><span class="line">sudo ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/sbin/mount_ntfs /sbin/mount_ntfs</span><br></pre></td></tr></table></figure>
+<ul>
+<li>re-enable <code>SIP</code></li>
+</ul>
+<p>Just reboot by holding CMD+R to get in recovery mode, re-enable System Integrity Protection using:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrutil <span class="built_in">enable</span></span><br></pre></td></tr></table></figure></p>
+<p>Finally, reboot your machine, and your NTFS disk should be writable now. </p>
+<p>Enjoy it :)</p>
+<blockquote>
+<p>Based on: </p>
+<p>  <a href="http://apple.stackexchange.com/questions/20889/how-do-i-write-to-ntfs-drives-in-os-x/213575#213575" target="_blank" rel="external">http://apple.stackexchange.com/questions/20889/how-do-i-write-to-ntfs-drives-in-os-x/213575#213575</a><br>  <a href="https://gist.github.com/Coeur/86a18b646a3b78930cf3" target="_blank" rel="external">https://gist.github.com/Coeur/86a18b646a3b78930cf3</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>NTFS format disk was default not writable under macosx.</p>
+<p>This guide is to show you how to enable ntfs disk read/write in macosx with <code>ntfs-3g</code>.</p>]]>
+    
+    </summary>
+    
+      <category term="macosx" scheme="http://quanken.github.io/tags/macosx/"/>
+    
+      <category term="macosx" scheme="http://quanken.github.io/categories/macosx/"/>
+    
+  </entry>
+  
+</feed>
