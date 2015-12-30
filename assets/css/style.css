@@ -3214,7 +3214,9 @@ figure.highlight {
       overflow-x: auto; }
   figure.highlight .line {
     height: 1.3em;
-    font-size: 1.4rem; }
+    font-size: 1.4rem; 
+	word-wrap: break-word; 
+	word-break: normal;}
 
 .gist .line,
 .gist .line-number {
