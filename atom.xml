@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just coding....]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://quanken.github.io/"/>
-  <updated>2015-12-30T11:33:08.000Z</updated>
+  <updated>2016-01-05T05:49:01.000Z</updated>
   <id>http://quanken.github.io/</id>
   
   <author>
@@ -13,6 +13,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Flush DNS Cache]]></title>
+    <link href="http://quanken.github.io/2016/01/05/Flush-DNS-Cache/"/>
+    <id>http://quanken.github.io/2016/01/05/Flush-DNS-Cache/</id>
+    <published>2016-01-05T05:43:39.000Z</published>
+    <updated>2016-01-05T05:49:01.000Z</updated>
+    <content type="html"><![CDATA[<p>当DNS缓存了一些错误的地址，干扰域名的正常解析，可以强制刷新DNS数据。</p>
+<a id="more"></a>
+<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><p>Windows 的 DNS 刷新命令为</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="winutils">ipconfig</span> /flushdns</span><br></pre></td></tr></table></figure>
+<h1 id="Mac_OSX"><a href="#Mac_OSX" class="headerlink" title="Mac OSX"></a>Mac OSX</h1><p>首先把可能受干扰的应用给关闭，然后打开 <code>Terminal</code> 执行：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">dscacheutil</span> -flushcache</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>当DNS缓存了一些错误的地址，干扰域名的正常解析，可以强制刷新DNS数据。</p>]]>
+    
+    </summary>
+    
+      <category term="macosx" scheme="http://quanken.github.io/tags/macosx/"/>
+    
+      <category term="windows" scheme="http://quanken.github.io/tags/windows/"/>
+    
+      <category term="command" scheme="http://quanken.github.io/categories/command/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CURL HTTP Usage]]></title>

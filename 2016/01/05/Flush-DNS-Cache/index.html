@@ -6,26 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="quanken">
-    <title>SpringMVC i18n - quanken</title>
+    <title>Flush DNS Cache - quanken</title>
     <meta name="author" content="Zhenquan.Liang">
     
     
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="Purposei18n with spring is quite easy
-This post is to show you a simplest spring i18n demo with gradle and groovy.">
+    <meta name="description" content="当DNS缓存了一些错误的地址，干扰域名的正常解析，可以强制刷新DNS数据。">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="SpringMVC i18n">
-<meta property="og:url" content="http://quanken.github.io/2015/12/04/SpringMVC-i18n/index.html">
+<meta property="og:title" content="Flush DNS Cache">
+<meta property="og:url" content="http://quanken.github.io/2016/01/05/Flush-DNS-Cache/index.html">
 <meta property="og:site_name" content="quanken">
-<meta property="og:description" content="Purposei18n with spring is quite easy
-This post is to show you a simplest spring i18n demo with gradle and groovy.">
-<meta property="og:updated_time" content="2015-12-28T06:59:39.000Z">
+<meta property="og:description" content="当DNS缓存了一些错误的地址，干扰域名的正常解析，可以强制刷新DNS数据。">
+<meta property="og:updated_time" content="2016-01-05T05:49:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringMVC i18n">
-<meta name="twitter:description" content="Purposei18n with spring is quite easy
-This post is to show you a simplest spring i18n demo with gradle and groovy.">
+<meta name="twitter:title" content="Flush DNS Cache">
+<meta name="twitter:description" content="当DNS缓存了一些错误的地址，干扰域名的正常解析，可以强制刷新DNS数据。">
 <meta name="twitter:creator" content="@quanken">
     
     
@@ -226,19 +223,19 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            SpringMVC i18n
+            Flush DNS Cache
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Fri Dec 04 2015 15:10:26 GMT+0800">
+    <time itemprop="datePublished" content="Tue Jan 05 2016 13:43:39 GMT+0800">
 	
-		    Dec 04, 2015
+		    Jan 05, 2016
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/coding/">coding</a>, <a class="category-link" href="/categories/coding/demo/">demo</a>
+    <a class="category-link" href="/categories/command/">command</a>
 
 
     
@@ -247,25 +244,12 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h1 id="Purpose"><a href="#Purpose" class="headerlink" title="Purpose"></a>Purpose</h1><p>i18n with spring is quite easy</p>
-<p>This post is to show you a simplest spring i18n demo with gradle and groovy.</p>
+            <p>当DNS缓存了一些错误的地址，干扰域名的正常解析，可以强制刷新DNS数据。</p>
 <a id="more"></a>
-<h1 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h1><p>I assume that you already have :</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JDK <span class="number">1.7</span>+</span><br><span class="line">Gradle <span class="number">2.1</span>+</span><br><span class="line">Tomcat <span class="number">7</span>+</span><br></pre></td></tr></table></figure>
-<h1 id="Project_Structure"><a href="#Project_Structure" class="headerlink" title="Project Structure"></a>Project Structure</h1><ul>
-<li>src/main/groovy</li>
-</ul>
-<p>source code</p>
-<ul>
-<li>src/main/resources/i18n</li>
-</ul>
-<p>message resource folder</p>
-<ul>
-<li>src/main/webapp</li>
-</ul>
-<p>web page folder</p>
-<h1 id="Build_Script"><a href="#Build_Script" class="headerlink" title="Build Script"></a>Build Script</h1><figure class="highlight groovy"><figcaption><span>build.gradle</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'groovy'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'idea'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'war'</span></span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">	compile <span class="string">'com.google.code.gson:gson:2.5'</span></span><br><span class="line">	compile <span class="string">'org.codehaus.groovy:groovy-all:2.4.5'</span></span><br><span class="line">	compile <span class="string">'org.springframework.boot:spring-boot-starter-web:1.2.2.RELEASE'</span></span><br><span class="line">	compile <span class="string">'jstl:jstl:1.2'</span></span><br><span class="line"></span><br><span class="line">	providedCompile <span class="string">'org.springframework.boot:spring-boot-starter-tomcat:1.2.2.RELEASE'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Core_Sources"><a href="#Core_Sources" class="headerlink" title="Core Sources"></a>Core Sources</h1><p>TODO</p>
+<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><p>Windows 的 DNS 刷新命令为</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="winutils">ipconfig</span> /flushdns</span><br></pre></td></tr></table></figure>
+<h1 id="Mac_OSX"><a href="#Mac_OSX" class="headerlink" title="Mac OSX"></a>Mac OSX</h1><p>首先把可能受干扰的应用给关闭，然后打开 <code>Terminal</code> 执行：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">dscacheutil</span> -flushcache</span><br></pre></td></tr></table></figure>
 
             
                 
@@ -278,7 +262,7 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/gradle/">gradle</a> <a class="tag tag--primary tag--small t-link" href="/tags/groovy/">groovy</a> <a class="tag tag--primary tag--small t-link" href="/tags/java/">java</a> <a class="tag tag--primary tag--small t-link" href="/tags/spring/">spring</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/macosx/">macosx</a> <a class="tag tag--primary tag--small t-link" href="/tags/windows/">windows</a>
 
             </div>
         
@@ -287,7 +271,7 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/26/Android-Image-Optimizor/"  data-tooltip="Android Image Optimizor">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -295,7 +279,7 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/10/MacOSX-EI-Capitan-enable-NTFS-disk-R-W-by-ntfs-3g/" data-tooltip="MacOSX EI Capitan : enable NTFS disk R/W by ntfs-3g">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/30/curl-practice/" data-tooltip="CURL HTTP Usage">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -310,17 +294,17 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -364,7 +348,7 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/26/Android-Image-Optimizor/"  data-tooltip="Android Image Optimizor">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -372,7 +356,7 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/10/MacOSX-EI-Capitan-enable-NTFS-disk-R-W-by-ntfs-3g/" data-tooltip="MacOSX EI Capitan : enable NTFS disk R/W by ntfs-3g">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/12/30/curl-practice/" data-tooltip="CURL HTTP Usage">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -387,17 +371,17 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -423,17 +407,17 @@ This post is to show you a simplest spring i18n demo with gradle and groovy.">
                 <div id="share-options-bar" class="share-options-bar" data-behavior="3">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://quanken.github.io/2015/12/04/SpringMVC-i18n/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://quanken.github.io/2016/01/05/Flush-DNS-Cache/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
