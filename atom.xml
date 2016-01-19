@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just coding....]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://quanken.github.io/"/>
-  <updated>2016-01-05T05:49:01.000Z</updated>
+  <updated>2016-01-19T07:07:53.000Z</updated>
   <id>http://quanken.github.io/</id>
   
   <author>
@@ -13,6 +13,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Gradle Maven Convertation]]></title>
+    <link href="http://quanken.github.io/2016/01/19/Gradle-Maven-Convertation/"/>
+    <id>http://quanken.github.io/2016/01/19/Gradle-Maven-Convertation/</id>
+    <published>2016-01-19T05:25:08.000Z</published>
+    <updated>2016-01-19T07:07:53.000Z</updated>
+    <content type="html"><![CDATA[<p>if you want to convert from maven to gradle or from gradle to maven, first of all, you should apply maven plugin:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br></pre></td></tr></table></figure>
+<h1 id="From_pom-xml_to_build-gradle"><a href="#From_pom-xml_to_build-gradle" class="headerlink" title="From pom.xml to build.gradle"></a>From pom.xml to build.gradle</h1><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle init --<span class="class"><span class="keyword">type</span> <span class="title">pom</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="From_build-gradle_to_pom-xml"><a href="#From_build-gradle_to_pom-xml" class="headerlink" title="From build.gradle to pom.xml"></a>From build.gradle to pom.xml</h1><p>exec command:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>and the pom.xml lays in <code>build/pom/pom-defaults.xml</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>if you want to convert from maven to gradle or from gradle to maven, first of all, you should apply maven plugin:</p>
+<figure class="high]]>
+    </summary>
+    
+      <category term="buildtools" scheme="http://quanken.github.io/tags/buildtools/"/>
+    
+      <category term="gradle" scheme="http://quanken.github.io/tags/gradle/"/>
+    
+      <category term="command" scheme="http://quanken.github.io/categories/command/"/>
+    
+      <category term="gradle" scheme="http://quanken.github.io/categories/command/gradle/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Flush DNS Cache]]></title>

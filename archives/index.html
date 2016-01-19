@@ -221,6 +221,59 @@
 <section class="postShorten-group main-content-wrap">
     
     
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/01/19/Gradle-Maven-Convertation/">
+                            Gradle Maven Convertation
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Tue Jan 19 2016 13:25:08 GMT+0800">
+	
+		    Jan 19, 2016
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/command/">command</a>, <a class="category-link" href="/categories/command/gradle/">gradle</a>
+
+
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>if you want to convert from maven to gradle or from gradle to maven, first of all, you should apply maven plugin:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br></pre></td></tr></table></figure>
+<h1 id="From_pom-xml_to_build-gradle"><a href="#From_pom-xml_to_build-gradle" class="headerlink" title="From pom.xml to build.gradle"></a>From pom.xml to build.gradle</h1><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle init --<span class="class"><span class="keyword">type</span> <span class="title">pom</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="From_build-gradle_to_pom-xml"><a href="#From_build-gradle_to_pom-xml" class="headerlink" title="From build.gradle to pom.xml"></a>From build.gradle to pom.xml</h1><p>exec command:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>and the pom.xml lays in <code>build/pom/pom-defaults.xml</code></p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2016/01/19/Gradle-Maven-Convertation/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
     <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
