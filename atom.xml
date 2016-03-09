@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just coding....]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://quanken.github.io/"/>
-  <updated>2016-01-19T07:07:53.000Z</updated>
+  <updated>2016-03-09T02:46:11.000Z</updated>
   <id>http://quanken.github.io/</id>
   
   <author>
@@ -13,6 +13,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Groovy Server JVM PermGen space]]></title>
+    <link href="http://quanken.github.io/2016/03/09/Groovy-Server-JVM-PemSpace/"/>
+    <id>http://quanken.github.io/2016/03/09/Groovy-Server-JVM-PemSpace/</id>
+    <published>2016-03-09T02:03:16.000Z</published>
+    <updated>2016-03-09T02:46:11.000Z</updated>
+    <content type="html"><![CDATA[<p>在使用Groovy作为开发语言完成服务端程序开发时，服务端在运行了一定时间后，会出现 <code>java.lang.RuntimeException: PermGen space</code> 的异常。</p>
+<a id="more"></a>
+<h1 id="u73AF_u5883"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h1><p>服务端或者开发机器使用的JDK为Oracle JDK 或者 OpenJDK， 大版本为1.7<br>应用容器采用的是 Apache Tomcat 7<br>Groovy 版本为 2.3 (其他版本没有实际测试，但从问题原因分析，应该类似)</p>
+<h1 id="u539F_u56E0"><a href="#u539F_u56E0" class="headerlink" title="原因"></a>原因</h1><p>PermGen Space 全称 <code>Permanent Generation space</code>，在实际应用中，主要被Tomcat 或者其他 J2EE 容器用来存放对象的类定义以及相关的Meta信息（对象的实例存放在Heap）。 当你的程序里面出现大量新的类的加载时，PermGen space 的内容就会快速增长，最后导致溢出。一般这种大量的新类被装载大多数都发生在</p>
+<ul>
+<li>开发环境中的热部署</li>
+<li>JSP预编译</li>
+<li>程序大量使用代理动态产生动态对象</li>
+</ul>
+<p>对于我们的场景来说，由于是测试服务器不存在热部署，也不存在调整JSP而需要大量预编译深圳JSP的预编译都是很少的，因此基本可以确定是Groovy语言特性所导致。</p>
+<p>由于程序在编写时，使用了大量的动态类型定义和Groovy语法糖</p>
+<p>比如</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def users = queryUserByTag(tag: <span class="string">"travel"</span>)</span><br><span class="line">users.findAll&#123; ( <span class="variable"><span class="keyword">var</span> !</span>= <span class="literal">null</span> ? it.age == <span class="variable"><span class="keyword">var</span></span> : <span class="literal">true</span> ) &amp;&amp; </span><br><span class="line">	  it.isManager == <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>这种代码多的话，在实际编译或者运行的时候，就会产生大量的动态对象Class，从而导致PermGen space容量不足导致溢出。</p>
+<h1 id="u601D_u8DEF"><a href="#u601D_u8DEF" class="headerlink" title="思路"></a>思路</h1><p>在这种可能出现大量Class写入到PermGen space中且这些class未必是长久有效的情况，可以通过两种方式来应对：</p>
+<ul>
+<li>加大 PermGen 大小</li>
+</ul>
+<p>可以在JAVA_OPTS中增加 -XX:MaxPermSize=SIZE , 其中SIZE为大小，可以为 128M 或者其他你评估、测试后可以正常运行的大小。</p>
+<ul>
+<li>卸载掉多余的class</li>
+</ul>
+<p>可以在JAVA_OPTS中增加 -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC </p>
+<p>有些博客或者站点推荐使用 -XX:+CMSPermGenSweepingEnabled ，但从 <a href="https://access.redhat.com/solutions/653353" target="_blank" rel="external">REDHAT:”Please use CMSClassUnloadingEnabled in place of CMSPermGenSweepingEnabled in the future” message when starting JBoss EAP</a> 文章来看，为了后续更好的兼容性，还是建议使用上面说的配置方式。</p>
+<ul>
+<li>解决办法</li>
+</ul>
+<p>在实际过程中，可以在Tomcat的bin目录下面，新建一个环境变量设置脚本</p>
+<p>Windows下为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rem windows&#10;&#10;set JAVA_OPTS=-Dfile.encoding=UTF-8 -Xms128m -Xmx1024m -XX:PermSize=64m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure>
+<p>*NIX下为:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;&#10;export JAVA_OPTS=-Dfile.encoding=UTF-8 -Xms128m -Xmx1024m -XX:PermSize=64m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在使用Groovy作为开发语言完成服务端程序开发时，服务端在运行了一定时间后，会出现 <code>java.lang.RuntimeException: PermGen space</code> 的异常。</p>]]>
+    
+    </summary>
+    
+      <category term="groovy" scheme="http://quanken.github.io/tags/groovy/"/>
+    
+      <category term="java" scheme="http://quanken.github.io/tags/java/"/>
+    
+      <category term="software" scheme="http://quanken.github.io/tags/software/"/>
+    
+      <category term="software" scheme="http://quanken.github.io/categories/software/"/>
+    
+      <category term="java" scheme="http://quanken.github.io/categories/software/java/"/>
+    
+      <category term="groovy" scheme="http://quanken.github.io/categories/software/java/groovy/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Gradle Maven Convertation]]></title>
