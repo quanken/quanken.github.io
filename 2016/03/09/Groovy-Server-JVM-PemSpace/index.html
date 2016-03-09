@@ -19,7 +19,7 @@
 <meta property="og:url" content="http://quanken.github.io/2016/03/09/Groovy-Server-JVM-PemSpace/index.html">
 <meta property="og:site_name" content="quanken">
 <meta property="og:description" content="在使用Groovy作为开发语言完成服务端程序开发时，服务端在运行了一定时间后，会出现 java.lang.RuntimeException: PermGen space 的异常。">
-<meta property="og:updated_time" content="2016-03-09T02:46:11.000Z">
+<meta property="og:updated_time" content="2016-03-09T02:48:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Groovy Server JVM PermGen space">
 <meta name="twitter:description" content="在使用Groovy作为开发语言完成服务端程序开发时，服务端在运行了一定时间后，会出现 java.lang.RuntimeException: PermGen space 的异常。">
@@ -268,13 +268,15 @@
 </ul>
 <p>可以在JAVA_OPTS中增加 -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC </p>
 <p>有些博客或者站点推荐使用 -XX:+CMSPermGenSweepingEnabled ，但从 <a href="https://access.redhat.com/solutions/653353" target="_blank" rel="external">REDHAT:”Please use CMSClassUnloadingEnabled in place of CMSPermGenSweepingEnabled in the future” message when starting JBoss EAP</a> 文章来看，为了后续更好的兼容性，还是建议使用上面说的配置方式。</p>
+<h1 id="u89E3_u51B3_u529E_u6CD5"><a href="#u89E3_u51B3_u529E_u6CD5" class="headerlink" title="解决办法"></a>解决办法</h1><p>在实际过程中，可以在Tomcat的bin目录下面，新建一个环境变量设置脚本</p>
 <ul>
-<li>解决办法</li>
+<li>Windows</li>
 </ul>
-<p>在实际过程中，可以在Tomcat的bin目录下面，新建一个环境变量设置脚本</p>
-<p>Windows下为：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rem windows&#10;&#10;set JAVA_OPTS=-Dfile.encoding=UTF-8 -Xms128m -Xmx1024m -XX:PermSize=64m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure>
-<p>*NIX下为:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;&#10;export JAVA_OPTS=-Dfile.encoding=UTF-8 -Xms128m -Xmx1024m -XX:PermSize=64m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>*NIX</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;&#10;export JAVA_OPTS=-Dfile.encoding=UTF-8 -Xms128m -Xmx1024m -XX:PermSize=64m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure>
 
             
                 
